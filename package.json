@@ -1,0 +1,59 @@
+{
+  "name": "@sherlockdoyle/struct.ts",
+  "version": "1.0.0",
+  "description": "Typed Ahead-of-Time binary serialization framework for TypeScript.",
+  "main": "./dist/struct.js",
+  "module": "./dist/struct.mjs",
+  "types": "./dist/struct.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/struct.d.mts",
+        "default": "./dist/struct.mjs"
+      },
+      "require": {
+        "types": "./dist/struct.d.ts",
+        "default": "./dist/struct.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "test": "tsx --test struct.test.ts",
+    "build": "tsup struct.ts --format cjs,esm --dts --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherlockdoyle/struct.ts.git"
+  },
+  "keywords": [
+    "typescript",
+    "serialization",
+    "binary",
+    "buffer",
+    "struct",
+    "aot"
+  ],
+  "author": "Shekhar Dutta",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sherlockdoyle/struct.ts/issues"
+  },
+  "homepage": "https://github.com/sherlockdoyle/struct.ts#readme",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "prettier": "^3.10.1",
+    "tsup": "^9.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3"
+  }
+}
