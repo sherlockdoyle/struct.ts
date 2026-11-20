@@ -1,6 +1,6 @@
 # struct.ts
 
-Typed, schema-driven binary serialization for TypeScript. Schemas describe a binary layout and provide typed `pack` and `unpack` operations.
+Fast, typed, schema-driven binary serialization for TypeScript. Schemas describe a binary layout and provide typed `pack` and `unpack` operations.
 
 ## Install
 
@@ -10,7 +10,7 @@ npm install @sherlockdoyle/struct.ts
 
 ## Quick start
 
-See [`struct.test.ts`](./struct.test.ts) for more examples.
+See [`struct.test.ts`](./struct.test.ts) for more examples. See the [wiki](https://github.com/sherlockdoyle/struct.ts/wiki) for a part-AI-generated detailed reference of the public API.
 
 ```ts
 import { bool, u32, str, struct } from '@sherlockdoyle/struct.ts';
@@ -155,7 +155,7 @@ const bigEndianBytes = bigEndian.pack(0x1234);
 | `Array_(schema)` / `array(schema)` / `array(schema, len)` | Length-prefixed array of values described by `schema`. Pass a second argument, such as `array(u16, 4)`, for a fixed-length array without the count prefix; it is fixed-size when its element schema is fixed-size. |
 | `BoolArray` / `array(bool)` / `array(bool, len)` | Bit-packed length-prefixed boolean array; compact equivalent of `Array_(bool)`. Use `array(bool, len)` to omit the 4-byte count prefix and store exactly `len` bits; this form is fixed-size. |
 | `Map_(keySchema, valueSchema)` / `map(keySchema, valueSchema)` | Length-prefixed map, with each key and value written by its schema. |
-| `Pad(size)` / `pad(size)` | Fixed number of zero-filled reserved bytes when writing; reads and skips them. |
+| `Pad(size)` / `pad(size)` | Fixed number of reserved bytes; writes and reads skips them. |
 | `Struct(definition)` / `struct(definition)` | Named fields. Object definitions are ordered by field name; ordered definitions use `[[name, schema], ...]`. |
 | `PartialStruct(definition)` / `struct(definition, true)` | A struct whose fixed-width fields can be left unchanged during `set(cursorOrBuffer, values)`. Variable-width fields cannot be omitted from a partial update. |
 | `Tuple([schemas])` / `tuple(...schemas)` | Sequence of schemas represented as a typed tuple, with no count prefix. |
@@ -215,3 +215,7 @@ const output = tree.unpack(tree.pack(input));
 variable size.
 
 `lazy` works with any schema combinator, including `optional` for linked structures and `array` for trees. Recursive values should be finite so packing and unpacking can complete.
+
+---
+
+The actual library (`struct.ts`) was written by hand - no AI was used to generate the code. The tests, docs, benchmarks etc were partly generated with the help of AI from the code and reviewed manually for accuracy.
